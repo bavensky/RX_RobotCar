@@ -20,7 +20,6 @@ int joystick[2];
 
 int pwm1=5,pwm2=6,motorleft1=3,motorleft2=2,motorright1=7,motorright2=4;
 
-
 void setup()   
 {
   Serial.begin(9600);delay(1000);
@@ -36,12 +35,11 @@ void setup()
   pinMode(motorright2, OUTPUT); 
 }
 
-
 void loop()   
 {
-
-  
+  rx();
 }
+
 void rx()
 {
   if ( radio.available() )
@@ -50,29 +48,31 @@ void rx()
     while (!done)
     {
       done = radio.read( joystick, sizeof(joystick) );
-      /*Serial.print("X = ");
+      Serial.print("X = ");
       Serial.print(joystick[0]);
       Serial.print(" Y = ");      
-      Serial.println(joystick[1]);*/
+      Serial.println(joystick[1]);
       
       if(joystick[0] >400)
       {
-        Serial.println("RIGHT");
+        right(255,255);
       }
       else if(joystick[0] <200)
       {
-        Serial.println("LEFT");
+        left(255,255);
       }
       else if(joystick[1] >400)
       {
-        Serial.println("FRONT");
+        forword(255,255);
       }
       else if(joystick[1] <200)
       {
-        Serial.println("BACK");
+        backword(255,255);
       }
       else
-      { Serial.println("NONE");  }
+      {
+        stopmotor();
+      }
     }
     delay(200);
   }
@@ -121,6 +121,15 @@ void right(int man1,int man2)
   digitalWrite(motorright2,HIGH);
 }
 
-
+void stopmotor()
+{
+  analogWrite(pwm1, 0);
+  digitalWrite(motorleft1,HIGH);
+  digitalWrite(motorleft2,LOW);
+  
+  analogWrite(pwm2, 0); 
+  digitalWrite(motorright1,LOW);
+  digitalWrite(motorright2,HIGH);
+}
 
 
