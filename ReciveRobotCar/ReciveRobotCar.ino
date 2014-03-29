@@ -7,7 +7,15 @@
    5 - SCK to Arduino pin 13
    6 - MOSI to Arduino pin 11
    7 - MISO to Arduino pin 12
-   8 - UNUSED */
+   8 - UNUSED 
+   9 - PWM1 to pin 5
+   10 - PWM2 to pin 6
+   11 - Motorleft1 to pin 3
+   12 - Motorleft2 to pin 2
+   13 - Motorright1 to pin 7
+   14 - Motorright2 to pin 4
+   
+*/
    
 #include <SPI.h>
 #include <nRF24L01.h>
